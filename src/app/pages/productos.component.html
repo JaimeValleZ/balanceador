@@ -1,0 +1,18 @@
+<h2>Lista de productos</h2>
+<table class="table table-striped mt-4">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let producto of productos">
+      <td>{{ producto.id }}</td>
+      <td>{{ producto.name }}</td>
+      <td>${{ producto.price }}</td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="productos.length === 0" class="text-center text-muted">Cargando productos...</div>
