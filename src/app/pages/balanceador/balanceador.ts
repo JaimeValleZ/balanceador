@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-balanceador',
-  imports: [],
   templateUrl: './balanceador.html',
-  styleUrl: './balanceador.css'
+  styleUrls: ['./balanceador.css']
 })
-export class Balanceador {
-
-}
+export class BalanceadorComponent {}
