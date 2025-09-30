@@ -21,6 +21,6 @@ public class ProductoController {
     // Genera 50,000 productos
     @GetMapping("/api/products/generate")
     public List<Producto> generateProducts() {
-        return productoService.generateProducts(5);
+        return productoService.generateProducts(50000);
     }
 }
