@@ -22,30 +22,36 @@ export class BalanceadorComponent implements OnInit {
   nuevoProducto: Producto = { id: 0, name: '', price: 0 };
 
   private apiUrls = environment.apiUrls;
-  private currentIndex = 0; // Para round-robin
+  private currentIndex = 0; // para round-robin
 
   constructor(private http: HttpClient) {}
 
-  // Método para obtener la URL actual y rotar al siguiente
-  private getNextUrl(): string {
+  private getNextApiUrl(): string {
     const url = this.apiUrls[this.currentIndex];
+    console.log(`[Balanceador] Usando backend: ${url}`); // <-- LOG
     this.currentIndex = (this.currentIndex + 1) % this.apiUrls.length;
     return url;
   }
 
   ngOnInit() {
-    const url = this.getNextUrl();
-    this.http.get<Producto[]>(`${url}/products/generate`)
-      .subscribe(data => this.productos = data);
+    const apiUrl = this.getNextApiUrl();
+    this.http.get<Producto[]>(`${apiUrl}/products/generate`)
+      .subscribe({
+        next: data => this.productos = data,
+        error: err => console.error(`[Balanceador] Error con backend ${apiUrl}:`, err)
+      });
   }
 
   agregarProducto() {
-    const url = this.getNextUrl();
-    this.http.post(`${url}/products`, this.nuevoProducto)
-      .subscribe(() => {
-        alert('Producto agregado!');
-        this.nuevoProducto = { id: 0, name: '', price: 0 };
-        this.ngOnInit();
+    const apiUrl = this.getNextApiUrl();
+    this.http.post(`${apiUrl}/products`, this.nuevoProducto)
+      .subscribe({
+        next: () => {
+          alert('Producto agregado!');
+          this.nuevoProducto = { id: 0, name: '', price: 0 };
+          this.ngOnInit();
+        },
+        error: err => console.error(`[Balanceador] Error con backend ${apiUrl}:`, err)
       });
   }
 }
