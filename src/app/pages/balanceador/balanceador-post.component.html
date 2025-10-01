@@ -1,28 +1,33 @@
 <div class="container mt-5">
   <h2>Carga masiva de productos</h2>
-  <form (ngSubmit)="enviar()">
-    <table class="table table-bordered mt-3">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Precio</th>
-          <th>Acción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let producto of productos; let i = index">
-          <td><input [(ngModel)]="producto.id" name="id{{i}}" class="form-control" required></td>
-          <td><input [(ngModel)]="producto.name" name="name{{i}}" class="form-control" required></td>
-          <td><input [(ngModel)]="producto.price" name="price{{i}}" class="form-control" required type="number" min="0"></td>
-          <td>
-            <button type="button" class="btn btn-danger btn-sm" (click)="eliminarFila(i)" *ngIf="productos.length > 1">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <button type="button" class="btn btn-secondary" (click)="agregarFila()">Agregar fila</button>
-    <button type="submit" class="btn btn-primary">Enviar</button>
-  </form>
-  <div class="mt-3 text-success" *ngIf="mensaje">{{ mensaje }}</div>
+
+  <!-- Botón para cargar más productos -->
+  <div class="mb-3">
+    <button type="button" class="btn btn-success" (click)="cargarMas()">
+      Cargar más productos (6000)
+    </button>
+  </div>
+
+  <!-- Mostrar contador -->
+  <p class="text-info">
+    Total de productos cargados: {{ productos.length }}
+  </p>
+
+  <!-- Tabla de productos -->
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td>{{ producto.id }}</td>
+        <td>{{ producto.name }}</td>
+        <td>{{ producto.price }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

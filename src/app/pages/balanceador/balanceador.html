@@ -1,14 +1,20 @@
 <div class="container mt-5">
-  <h1 class="text-primary text-center">Bienvenido a la tienda de Brainrots</h1>
+  <h2>Carga masiva de productos</h2>
 
-  <form (ngSubmit)="agregarProducto()" class="row g-3 mb-4 justify-content-center">
-  <div class="col-auto">
-    <button type="submit" class="btn btn-primary btn-lg">Visualizar</button>
+  <!-- Botón para cargar más productos -->
+  <div class="mb-3">
+    <button type="button" class="btn btn-success" (click)="cargarMas()">
+      Cargar más productos (6000)
+    </button>
   </div>
-</form>
 
+  <!-- Mostrar contador -->
+  <p class="text-info">
+    Total de productos cargados: {{ productos.length }}
+  </p>
 
-  <table class="table table-striped mt-4">
+  <!-- Tabla de productos -->
+  <table class="table table-bordered mt-3">
     <thead>
       <tr>
         <th>ID</th>
@@ -20,9 +26,8 @@
       <tr *ngFor="let producto of productos">
         <td>{{ producto.id }}</td>
         <td>{{ producto.name }}</td>
-        <td>${{ producto.price }}</td>
+        <td>{{ producto.price }}</td>
       </tr>
     </tbody>
   </table>
-  <div *ngIf="productos.length === 0" class="text-center text-muted">Cargando productos...</div>
 </div>
