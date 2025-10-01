@@ -1,4 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080'  // backend corriendo localmente
+  apiUrls: [
+    'http://localhost:8080'  // tu backend local
+  ]
 };

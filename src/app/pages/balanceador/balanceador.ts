@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -22,17 +21,27 @@ export class BalanceadorComponent implements OnInit {
   productos: Producto[] = [];
   nuevoProducto: Producto = { id: 0, name: '', price: 0 };
 
-  private apiUrl = environment.apiUrl;
+  private apiUrls = environment.apiUrls;
+  private currentIndex = 0; // Para round-robin
 
   constructor(private http: HttpClient) {}
 
+  // Método para obtener la URL actual y rotar al siguiente
+  private getNextUrl(): string {
+    const url = this.apiUrls[this.currentIndex];
+    this.currentIndex = (this.currentIndex + 1) % this.apiUrls.length;
+    return url;
+  }
+
   ngOnInit() {
-    this.http.get<Producto[]>(`${this.apiUrl}/api/products/generate`)
+    const url = this.getNextUrl();
+    this.http.get<Producto[]>(`${url}/products/generate`)
       .subscribe(data => this.productos = data);
   }
 
   agregarProducto() {
-    this.http.post(`${this.apiUrl}/api/products`, this.nuevoProducto)
+    const url = this.getNextUrl();
+    this.http.post(`${url}/products`, this.nuevoProducto)
       .subscribe(() => {
         alert('Producto agregado!');
         this.nuevoProducto = { id: 0, name: '', price: 0 };

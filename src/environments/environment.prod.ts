@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://balanceador-backend-3.onrender.com'
-};
+  apiUrls: [
+    'https://balanceador-backend-3.onrender.com',   // Render
+    'https://balanceador-backend-production.up.railway.app' // Railway
+  ]};
