@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   apiUrls: [
-    'https://academic-meerkat-66-cun-66-b41a70fa.koyeb.app/api' // solo Koyeb
+    'https://defiant-echidna-rolc-c6382c5d.koyeb.app/api' // solo Koyeb
   ]
 };
